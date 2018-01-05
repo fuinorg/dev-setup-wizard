@@ -1,0 +1,51 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.fuin.devsupwiz</groupId>
+	<artifactId>devsupwiz-example</artifactId>
+	<version>0.1.0</version>
+
+	<dependencies>
+
+		<!-- Base application -->
+		<dependency>
+			<groupId>org.fuin.devsupwiz</groupId>
+			<artifactId>devsupwiz-base</artifactId>
+			<version>0.1.0</version>
+		</dependency>
+
+		<!-- Base tasks -->
+		<dependency>
+			<groupId>org.fuin.devsupwiz</groupId>
+			<artifactId>devsupwiz-tasks</artifactId>
+			<version>0.1.0</version>
+		</dependency>
+
+		<!-- Additional tasks -->
+		<!-- ... Add your task libraries here ... -->
+
+	</dependencies>
+
+	<build>
+
+		<plugins>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.6.0</version>
+				<configuration>
+					<mainClass>org.fuin.devsupwiz.base.DevSetupWizard</mainClass>
+					<arguments>
+						<argument>https://raw.githubusercontent.com/fuinorg/dev-setup-wizard/master/example/my-project-setup.xml</argument>
+					</arguments>
+				</configuration>
+			</plugin>
+
+		</plugins>
+
+	</build>
+
+</project>

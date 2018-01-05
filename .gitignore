@@ -1,0 +1,7 @@
+.*
+!.gitignore
+!.gitkeep
+target
+META-INF
+*.log
+dev-setup-wizard-logback.xml

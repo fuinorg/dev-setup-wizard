@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.fuin</groupId>
+		<artifactId>pom</artifactId>
+		<version>1.4.0</version>
+	</parent>
+
+	<groupId>org.fuin.devsupwiz</groupId>
+	<artifactId>dev-setup-wizard</artifactId>
+	<version>0.1.0</version>
+	<packaging>pom</packaging>
+	<description>A JavaFX based wizard for setting up a development environment on a Linux virtual machine (VM)</description>
+	<url>https://github.com/fuinorg/dev-setup-wizard/</url>
+
+	<scm>
+		<url>https://github.com/fuinorg/dev-setup-wizard/</url>
+		<connection>scm:git:git://github.com/fuinorg/dev-setup-wizard.git</connection>
+		<developerConnection>scm:git:git@github.com:fuinorg/dev-setup-wizard.git</developerConnection>
+	</scm>
+
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/fuinorg/dev-setup-wizard/issues</url>
+	</issueManagement>
+
+	<modules>
+		<module>common</module>
+		<module>base</module>
+		<module>tasks</module>
+	</modules>
+
+</project>

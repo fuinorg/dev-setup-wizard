@@ -1,0 +1,98 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.fuin</groupId>
+		<artifactId>pom</artifactId>
+		<version>1.4.0</version>
+		<relativePath></relativePath>
+	</parent>
+
+	<groupId>org.fuin.devsupwiz</groupId>
+	<artifactId>devsupwiz-tasks</artifactId>
+	<version>0.1.0</version>
+	<description>A JavaFX based wizard for setting up a development environment on a Linux virtual machine (VM) / TASKS</description>
+	<url>https://github.com/fuinorg/dev-setup-wizard/</url>
+
+	<scm>
+		<url>https://github.com/fuinorg/dev-setup-wizard/</url>
+		<connection>scm:git:git://github.com/fuinorg/dev-setup-wizard.git</connection>
+		<developerConnection>scm:git:git@github.com:fuinorg/dev-setup-wizard.git</developerConnection>
+	</scm>
+
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/fuinorg/dev-setup-wizard/issues</url>
+	</issueManagement>
+
+	<dependencies>
+
+		<!-- compile -->
+
+		<dependency>
+			<groupId>org.fuin.devsupwiz</groupId>
+			<artifactId>devsupwiz-common</artifactId>
+			<version>0.1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcpkix-jdk15on</artifactId>
+			<version>1.58</version>
+		</dependency>
+
+		<!-- test -->
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>3.8.0</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.fuin</groupId>
+			<artifactId>units4j</artifactId>
+			<version>0.8.2</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.validation</groupId>
+					<artifactId>validation-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>nl.jqno.equalsverifier</groupId>
+			<artifactId>equalsverifier</artifactId>
+			<version>2.4</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.xmlunit</groupId>
+			<artifactId>xmlunit-core</artifactId>
+			<version>2.5.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.testfx</groupId>
+			<artifactId>testfx-junit</artifactId>
+			<version>4.0.10-alpha</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+</project>

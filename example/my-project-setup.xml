@@ -1,0 +1,11 @@
+<dev-setup-wizard name="my-project">
+	<tasks>
+		<set-hostname id="1" task-class="org.fuin.devsupwiz.tasks.hostname.SetHostnameTask" />
+		<create-git-config id="1" task-class="org.fuin.devsupwiz.tasks.gitsetup.CreateGitConfigTask" />
+		<setup-git-ssh id="1" provider="bitbucket" host="bitbucket.org" task-class="org.fuin.devsupwiz.tasks.gitsetup.SetupGitSshTask" />
+		<git-clone id="1" target-dir="~/git" task-class="org.fuin.devsupwiz.tasks.gitsetup.GitCloneTask" >
+			<repository>git@bitbucket.org:tutorials/tutorials.git.bitbucket.org.git</repository>
+			<repository>git@bitbucket.org:tutorials/online-edit-starter.git</repository>
+		</git-clone>
+	</tasks>
+</dev-setup-wizard>

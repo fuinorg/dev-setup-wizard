@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fuin.devsupwiz.base.WelcomeController">
+   <children>
+      <Label id="title" fx:id="title" alignment="CENTER" minWidth="200.0" text="%title">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/dev-setup-wizard-200x200.png" />
+         </image>
+      </ImageView>
+      <TextArea editable="false" prefHeight="80.0" prefWidth="400.0" text="%text" wrapText="true">
+         <font>
+            <Font size="16.0" />
+         </font></TextArea>
+   </children>
+</VBox>

@@ -1,0 +1,5 @@
+[user]
+	name = Peter Parker
+	email = peter.parker@somewhere.com
+[push]
+	default = simple

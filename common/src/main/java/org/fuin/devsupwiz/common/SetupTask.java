@@ -1,0 +1,76 @@
+/**
+ * Copyright (C) 2015 Michael Schnell. All rights reserved. 
+ * http://www.fuin.org/
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library. If not, see http://www.gnu.org/licenses/.
+ */
+package org.fuin.devsupwiz.common;
+
+/**
+ * Task to create or update some kind of setup.
+ */
+public interface SetupTask {
+
+    /**
+     * Returns a uinque identifier.
+     * 
+     * @return Task identifier.
+     */
+    public String getId();
+
+    /**
+     * Returns the type of the task.
+     * 
+     * @return Unique type.
+     */
+    public String getType();
+
+    /**
+     * Returns the type and identifier of the task.
+     * 
+     * @return Unique type and identifier.
+     */
+    public String getTypeId();
+
+    /**
+     * Returns the FXML that is used to display and configure this task.
+     * 
+     * @return FXML path and name.
+     */
+    public String getFxml();
+
+    /**
+     * Returns the resource that is used with the FXML resource.
+     * 
+     * @return Resource path and name.
+     */
+    public String getResource();
+
+    /**
+     * Determines if the task was already executed.
+     * 
+     * @return <code>false</code> if {@link #execute()} will do some work or
+     *         <code>true</code> if the task already was executed.
+     */
+    public boolean alreadyExecuted();
+
+    /**
+     * Executes the setup task. Does nothing if {@link #alreadyExecuted()}
+     * returns <code>true</code>. The method will store some kind of persistent
+     * information after execution or it will determine some other way if
+     * execution is necessary.
+     */
+    public void execute();
+
+}
