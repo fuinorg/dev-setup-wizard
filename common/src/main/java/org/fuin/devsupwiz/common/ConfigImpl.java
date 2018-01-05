@@ -70,9 +70,6 @@ public final class ConfigImpl implements Config {
      * 
      * @param name
      *            Unique name.
-     * @param dependencies
-     *            Dependencies in "G:A:V" format (G=groupId, A=artifactId,
-     *            V=version).
      * @param tasks
      *            Tasks.
      */

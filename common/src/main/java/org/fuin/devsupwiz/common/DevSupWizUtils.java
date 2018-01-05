@@ -197,7 +197,7 @@ public final class DevSupWizUtils {
      * 
      * @param file
      *            File to set permissions for.
-     * @param filePermissions
+     * @param permissions
      *            Permissions to set.
      */
     public static void setFilePermissions(final File file,

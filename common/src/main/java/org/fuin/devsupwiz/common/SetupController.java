@@ -40,7 +40,7 @@ public interface SetupController {
 
     /**
      * The controller saves the data to it's assigned task. This method should
-     * only be called if the {@link #isValid()} returned <code>true</code>.
+     * only be called if the {@link #getValidationErrors()} returned no errors.
      */
     public void save();
 

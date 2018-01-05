@@ -28,7 +28,6 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
-import org.apache.commons.exec.ExecuteException;
 import org.apache.commons.exec.ExecuteWatchdog;
 import org.apache.commons.exec.PumpStreamHandler;
 import org.apache.commons.exec.ShutdownHookProcessDestroyer;
@@ -94,6 +93,8 @@ public final class ShellCommandExecutor {
      *            Standard output stream.
      * @param err
      *            Error output stream.
+     * @param workingDir
+     *            Working directory where to execute the command inside.
      */
     public ShellCommandExecutor(@NotEmpty final String cmd,
             final long timeoutSeconds, @NotNull final Map<String, String> env,
@@ -143,6 +144,8 @@ public final class ShellCommandExecutor {
      *            Standard output stream.
      * @param err
      *            Error output stream.
+     * @param workingDir
+     *            Working directory where to execute the command inside.
      */
     public ShellCommandExecutor(@Nullable final String pw,
             @NotEmpty final String cmd, final long timeoutSeconds,
@@ -163,9 +166,6 @@ public final class ShellCommandExecutor {
      * Executes the command.
      * 
      * @return Exit code.
-     * 
-     * @throws ExecuteException
-     *             Execution failed.
      */
     public final int execute() {
 
