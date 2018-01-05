@@ -12,7 +12,7 @@
 
 	<groupId>org.fuin.devsupwiz</groupId>
 	<artifactId>devsupwiz-common</artifactId>
-	<version>0.1.1</version>
+	<version>0.2.0-SNAPSHOT</version>
 	<description>A JavaFX based wizard for setting up a development environment on a Linux virtual machine (VM) / COMMON</description>
 	<url>https://github.com/fuinorg/dev-setup-wizard/</url>
 
