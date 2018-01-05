@@ -5,7 +5,7 @@
 
 	<groupId>org.fuin.devsupwiz</groupId>
 	<artifactId>devsupwiz-example</artifactId>
-	<version>0.2.0-SNAPSHOT</version>
+	<version>0.1.1</version>
 
 	<dependencies>
 
@@ -13,14 +13,14 @@
 		<dependency>
 			<groupId>org.fuin.devsupwiz</groupId>
 			<artifactId>devsupwiz-base</artifactId>
-			<version>0.2.0-SNAPSHOT</version>
+			<version>0.1.1</version>
 		</dependency>
 
 		<!-- Base tasks -->
 		<dependency>
 			<groupId>org.fuin.devsupwiz</groupId>
 			<artifactId>devsupwiz-tasks</artifactId>
-			<version>0.2.0-SNAPSHOT</version>
+			<version>0.1.1</version>
 		</dependency>
 
 		<!-- Additional tasks -->
