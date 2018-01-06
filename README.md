@@ -89,7 +89,7 @@ Example:
     <dependency>
       <groupId>org.fuin.devsupwiz</groupId>
       <artifactId>devsupwiz-tasks</artifactId>
-      <version>0.1.1</version>
+      <version>0.2.0</version>
     </dependency>
 
     <!-- Additional tasks -->    
@@ -132,12 +132,15 @@ Example (my-project-setup.xml):
   <tasks>
     <set-hostname id="1" task-class="org.fuin.devsupwiz.tasks.hostname.SetHostnameTask" />
     <create-git-config id="1" task-class="org.fuin.devsupwiz.tasks.gitsetup.CreateGitConfigTask" />
-    <setup-git-ssh id="1" provider="bitbucket" host="bitbucket.org" task-class="org.fuin.devsupwiz.tasks.gitsetup.SetupGitSshTask" />
+    <setup-git-ssh id="1" provider="bitbucket" host="bitbucket.org" 
+        task-class="org.fuin.devsupwiz.tasks.gitsetup.SetupGitSshTask" />
     <git-clone id="1" target-dir="~/git" task-class="org.fuin.devsupwiz.tasks.gitsetup.GitCloneTask" >
       <repository>git@bitbucket.org:my_account/my-project.git</repository>
       <repository>git@bitbucket.org:my_account/another-one.git</repository>
       <repository>git@bitbucket.org:my_account/whatever.git</repository>
     </git-clone>
+    <create-maven-settings id="1" template="~/git/my-project/config/settings.xml"
+        task-class="org.fuin.devsupwiz.tasks.maven.CreateMavenSettingsTask"/>
   </tasks>
 </dev-setup-wizard>
 ```

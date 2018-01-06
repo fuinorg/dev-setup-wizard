@@ -7,5 +7,6 @@
 			<repository>git@bitbucket.org:tutorials/tutorials.git.bitbucket.org.git</repository>
 			<repository>git@bitbucket.org:tutorials/online-edit-starter.git</repository>
 		</git-clone>
+		<create-maven-settings  id="1" template="~/git/myprj-config/settings.xml" task-class="org.fuin.devsupwiz.tasks.maven.CreateMavenSettingsTask"/>
 	</tasks>
 </dev-setup-wizard>
