@@ -1,4 +1,0 @@
-Host bitbucket.org
-    User peter_parker
-    HostName bitbucket.org
-    IdentityFile target/.ssh/peter_parker-bitbucket.org.prv
