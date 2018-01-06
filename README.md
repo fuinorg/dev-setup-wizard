@@ -2,7 +2,7 @@
 A JavaFX based wizard for setting up a development environment on a Linux virtual machine (VM) - *Sorry, no Windows...*.
 
 [![Build Status](https://fuin-org.ci.cloudbees.com/job/dev-setup-wizard/badge/icon)](https://fuin-org.ci.cloudbees.com/job/dev-setup-wizard/)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.fuin/dev-setup-wizard/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.fuin/dev-setup-wizard/)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.fuin.devsupwiz/devsupwiz-base/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.fuin.devsupwiz/devsupwiz-base/)
 [![LGPLv3 License](http://img.shields.io/badge/license-LGPLv3-blue.svg)](https://www.gnu.org/licenses/lgpl.html)
 [![Java Development Kit 1.8](https://img.shields.io/badge/JDK-1.8-green.svg)](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 
