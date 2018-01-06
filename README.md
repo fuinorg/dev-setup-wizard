@@ -26,10 +26,7 @@ There are already some predefined tasks available in the [devsupwiz-tasks](https
 * **setup-git-ssh**: Generates a new key pair and adds it to the "~/.ssh/config" file. The public key is also submitted to the git provider (Bitbucket, Github) using a REST API. 
 * **git-clone**: Clones one or more git repositories. Requires that a valid SSH key is installed (See "setup-git-ssh" task).
 
-Planned:
-- [ ] New task **eclipse-installer** that installs and configures Eclipse (See #1)
-- [ ] New task **apt-get-install** that installs packages (See #2)
-- [ ] Add Github API as **setup-git-ssh** only suports Bitbucket (see #3) 
+More tasks are [planned](https://github.com/fuinorg/devsupwiz-tasks/issues)...
 
 ## Custom tasks
 It's easily possible to create your own custom tasks for the setup.
