@@ -19,7 +19,7 @@ At the end there are also some tasks that will simply execute linux commands in 
 <a href="https://github.com/fuinorg/dev-setup-wizard/raw/master/base/doc/welcome-screen.png" target="_blank"><img src="https://github.com/fuinorg/dev-setup-wizard/raw/master/base/doc/welcome-screen.png" width="320" height="335" alt="Welcome Screen"></a> 
 
 ## Standard tasks
-There are already some predefined tasks available in the [devsupwiz-tasks](https://github.com/fuinorg/dev-setup-wizard/tree/master/tasks) module.
+There are already some predefined tasks available in the [devsupwiz-tasks](https://github.com/fuinorg/devsupwiz-tasks) repository.
 
 * **set-hostname**: Sets a new hostname for the virtual machine (VM)
 * **create-git-config**: Creates and populates the "~/.gitconfig" file.
@@ -41,7 +41,7 @@ Steps:
 4. Implement the JavaFX controller for the FXML file. The controller validates the user's data and finally updates the task (Implement the [SetupController](https://github.com/fuinorg/dev-setup-wizard/blob/master/common/src/main/java/org/fuin/devsupwiz/common/SetupController.java) interface).
 5. Provide the code in a Maven repository. This can be Maven Central for public artifacts or just a simple private webserver (See [this article](https://malalanayake.wordpress.com/2014/03/10/create-simple-maven-repository-on-github/) for explanation). 
 
-Take a look at the [tasks](https://github.com/fuinorg/dev-setup-wizard/tree/master/tasks) project for a full example.
+Take a look at the [devsupwiz-tasks](https://github.com/fuinorg/devsupwiz-tasks) repository for a full example.
 
 ## Limitations
 Currently only Linux is supported. This is not really a limitation as the application is meant for customizing a virtual machine (VM).
