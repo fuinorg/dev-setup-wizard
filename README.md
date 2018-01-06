@@ -25,6 +25,7 @@ There are already some predefined tasks available in the [devsupwiz-tasks](https
 * **create-git-config**: Creates and populates the "~/.gitconfig" file.
 * **setup-git-ssh**: Generates a new key pair and adds it to the "~/.ssh/config" file. The public key is also submitted to the git provider (Bitbucket, Github) using a REST API. 
 * **git-clone**: Clones one or more git repositories. Requires that a valid SSH key is installed (See "setup-git-ssh" task).
+* **create-maven-settings**: Creates a ".m2/settings.xml" file with credentials for private repositories. 
 
 More tasks are [planned](https://github.com/fuinorg/devsupwiz-tasks/issues)...
 
