@@ -38,7 +38,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
- * Extract from the configuration XML.
+ * Extract from the configuration XML. Reads the names of the task classes. This
+ * allows adding the classes to the JAXB context to handle unmarshalling properly.
  */
 public class ConfigPreview {
 
