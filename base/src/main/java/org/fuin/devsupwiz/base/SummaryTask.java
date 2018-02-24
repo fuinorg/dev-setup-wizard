@@ -52,18 +52,13 @@ public class SummaryTask implements SetupTask {
     }
 
     @Override
-    public String getId() {
-        return "1";
-    }
-
-    @Override
     public String getType() {
         return KEY;
     }
 
     @Override
     public String getTypeId() {
-        return getType() + "[" + getId() + "]";
+        return KEY;
     }
 
 }

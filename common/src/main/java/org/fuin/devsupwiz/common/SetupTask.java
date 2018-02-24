@@ -23,13 +23,6 @@ package org.fuin.devsupwiz.common;
 public interface SetupTask {
 
     /**
-     * Returns a uinque identifier.
-     * 
-     * @return Task identifier.
-     */
-    public String getId();
-
-    /**
      * Returns the type of the task.
      * 
      * @return Unique type.
@@ -37,7 +30,9 @@ public interface SetupTask {
     public String getType();
 
     /**
-     * Returns the type and identifier of the task.
+     * Returns the type and identifier of the task. In case of singleton tasks
+     * (only one instance in a config allowed) this will return only the same
+     * information as {@link #getType()}.
      * 
      * @return Unique type and identifier.
      */

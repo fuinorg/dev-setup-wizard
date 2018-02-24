@@ -34,7 +34,7 @@ It's easily possible to create your own custom tasks for the setup.
 
 Steps:
 1. Create a new Java project that will contain your custom task.
-2. Develop the non-visual and [JAX-B](https://github.com/javaee/jaxb-v2) enabled task that does the work (Implement the [SetupTask](https://github.com/fuinorg/dev-setup-wizard/blob/master/common/src/main/java/org/fuin/devsupwiz/common/SetupTask.java) interface).
+2. Develop the non-visual and [JAX-B](https://github.com/javaee/jaxb-v2) enabled task that does the work (Implement the [SetupTask](https://github.com/fuinorg/dev-setup-wizard/blob/master/common/src/main/java/org/fuin/devsupwiz/common/SetupTask.java) or [MultipleInstancesSetupTask](https://github.com/fuinorg/dev-setup-wizard/blob/master/common/src/main/java/org/fuin/devsupwiz/common/MultipleInstancesSetupTask.java) interface).
 3. Design the FXML to allow the user to enter some information that will be stored in the task before it executes.
 4. Implement the JavaFX controller for the FXML file. The controller validates the user's data and finally updates the task (Implement the [SetupController](https://github.com/fuinorg/dev-setup-wizard/blob/master/common/src/main/java/org/fuin/devsupwiz/common/SetupController.java) interface).
 5. Provide the code in a Maven repository. This can be Maven Central for public artifacts or just a simple private webserver (See [this article](https://malalanayake.wordpress.com/2014/03/10/create-simple-maven-repository-on-github/) for explanation). 
