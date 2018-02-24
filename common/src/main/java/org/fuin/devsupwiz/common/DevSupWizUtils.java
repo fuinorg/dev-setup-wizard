@@ -109,6 +109,7 @@ public final class DevSupWizUtils {
      * @param <T>
      *            Expected appender type.
      */
+    @SuppressWarnings("unchecked")
     public static <T extends Appender<ILoggingEvent>> T findAppender(
             final String name) {
         final LoggerContext context = (LoggerContext) LoggerFactory
@@ -221,7 +222,6 @@ public final class DevSupWizUtils {
      */
     public static void addToSshKnownHosts(final String host) {
 
-        final ByteArrayOutputStream bos = new ByteArrayOutputStream();
         final ShellCommandExecutor executor = new ShellCommandExecutor(
                 "ssh -oStrictHostKeyChecking=no " + host, 5,
                 new HashMap<String, String>(), new LogOutputStream(Level.INFO),
