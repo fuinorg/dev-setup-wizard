@@ -19,13 +19,13 @@ package org.fuin.devsupwiz.base;
 
 import javax.enterprise.context.ApplicationScoped;
 
-import org.fuin.devsupwiz.common.SetupTask;
+import org.fuin.devsupwiz.common.AbstractSetupTask;
 
 /**
  * Welcome screen task.
  */
 @ApplicationScoped
-public class WelcomeTask implements SetupTask {
+public class WelcomeTask extends AbstractSetupTask {
 
     /** Unique normalized name of the task (for example used for FXML file). */
     static final String KEY = "welcome";

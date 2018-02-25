@@ -19,13 +19,13 @@ package org.fuin.devsupwiz.base;
 
 import javax.enterprise.context.ApplicationScoped;
 
-import org.fuin.devsupwiz.common.SetupTask;
+import org.fuin.devsupwiz.common.AbstractSetupTask;
 
 /**
  * Summary task.
  */
 @ApplicationScoped
-public class SummaryTask implements SetupTask {
+public class SummaryTask extends AbstractSetupTask {
 
     /** Unique normalized name of the task (for example used for FXML file). */
     static final String KEY = "summary";

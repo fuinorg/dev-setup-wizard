@@ -17,36 +17,30 @@
  */
 package org.fuin.devsupwiz.common;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.math.BigDecimal;
-
-import org.junit.Test;
-
 /**
- * Test for the {@link ConfigPreview} class.
+ * Base class for setup tasks that implements the hash code and equals functions
+ * based on the {@link #getTypeId()} method.
  */
-public class ConfigPreviewTest {
+public abstract class AbstractSetupTask implements SetupTask {
 
-    @Test
-    public void testLoad() {
+    @Override
+    public int hashCode() {
+        return getTypeId().hashCode();
+    }
 
-        // PREPARE
-        final String xml = "<dev-setup-wizard><tasks>"
-                + "<abc task-class=\"java.lang.String\" />"
-                + "<def task-class=\"java.lang.Integer\" />"
-                + "<ghi task-class=\"java.math.BigDecimal\" />"
-                + "</tasks></dev-setup-wizard>";
-
-        final ConfigPreview testee = new ConfigPreview(xml);
-
-        // TEST
-        testee.load();
-
-        // VERIFY
-        assertThat(testee.getClassNames()).containsOnly(String.class.getName(),
-                Integer.class.getName(), BigDecimal.class.getName());
-
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final AbstractSetupTask other = (AbstractSetupTask) obj;
+        return getTypeId().equals(other.getTypeId());
     }
 
 }

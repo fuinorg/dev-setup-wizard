@@ -22,19 +22,31 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.attribute.PosixFilePermission;
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Path;
 
+import org.fuin.utils4j.Utils4J;
+import org.jboss.jandex.ClassInfo;
+import org.jboss.jandex.DotName;
+import org.jboss.jandex.Index;
+import org.jboss.jandex.Indexer;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.event.Level;
 
@@ -49,6 +61,9 @@ public final class DevSupWizUtils {
 
     /** Key used for the MDC 'task' value. */
     public static final String MDC_TASK_KEY = "task";
+
+    private static final Logger LOG = LoggerFactory
+            .getLogger(DevSupWizUtils.class);
 
     private DevSupWizUtils() {
     }
@@ -231,6 +246,130 @@ public final class DevSupWizUtils {
             throw new RuntimeException("Error # " + result + " adding " + host
                     + " to 'known_hosts'");
         }
+
+    }
+
+    private static List<String> implementors(final Index index,
+            final Class<?> clasz) {
+        final List<String> classNames = new ArrayList<>();
+        final Set<ClassInfo> implementors = index
+                .getAllKnownImplementors(DotName.createSimple(clasz.getName()));
+        for (final ClassInfo ci : implementors) {
+            classNames.add(ci.name().toString());
+        }
+        return classNames;
+    }
+
+    private static void indexClassFile(final Indexer indexer,
+            final List<File> knownFiles, final File classFile) {
+        if (!knownFiles.contains(classFile)) {
+            knownFiles.add(classFile);
+            LOG.trace("Analyze class file: " + classFile);
+            try (final InputStream in = classFile.toURI().toURL()
+                    .openStream()) {
+                indexer.index(in);
+            } catch (final IOException ex) {
+                throw new RuntimeException("Error indexing file: " + classFile,
+                        ex);
+            }
+        }
+    }
+
+    private static void indexDir(final Indexer indexer,
+            final List<File> knownFiles, final File dir) {
+        LOG.debug("Index dir: " + dir);
+        final List<File> classes = Utils4J.pathsFiles(dir.getPath(),
+                Utils4J::classFile);
+        for (final File file : classes) {
+            indexClassFile(indexer, knownFiles, file);
+        }
+    }
+
+    private static void indexJar(final Indexer indexer,
+            final List<File> knownFiles, final File jarFile) {
+        LOG.debug("Index jar: " + jarFile);
+        if (!knownFiles.contains(jarFile)) {
+            knownFiles.add(jarFile);
+        }
+
+        try (final JarFile jar = new JarFile(jarFile)) {
+            final Enumeration<JarEntry> entries = jar.entries();
+            while (entries.hasMoreElements()) {
+                final JarEntry entry = entries.nextElement();
+                if (entry.getName().endsWith(".class")) {
+                    LOG.trace("Analyze class: " + entry.getName());
+                    try (final InputStream stream = jar.getInputStream(entry)) {
+                        indexer.index(stream);
+                    } catch (final IOException ex) {
+                        throw new RuntimeException("Error indexing "
+                                + entry.getName() + " in " + jarFile, ex);
+                    }
+                }
+
+            }
+        } catch (final IOException ex) {
+            throw new RuntimeException("Error indexing " + jarFile, ex);
+        }
+    }
+
+    /**
+     * Returns all classes from the classpath (*.jar or *.class) that implement
+     * the {@link SetupTask} interface.
+     * 
+     * @return List of full qualified class names.
+     */
+    public static List<String> findSetupTasksInClasspath() {
+
+        final Indexer indexer = new Indexer();
+
+        // Prevent jars/classes to be analyzed twice
+        final List<File> knownFiles = new ArrayList<>();
+
+        // Variant that works with Maven "exec:java"
+        final List<File> classPathFiles = Utils4J.localFilesFromUrlClassLoader(
+                (URLClassLoader) DevSupWizUtils.class.getClassLoader());
+        for (final File file : classPathFiles) {
+            LOG.debug("CP file: {}", file);
+            if (Utils4J.nonJreJarFile(file)) {
+                indexJar(indexer, knownFiles, file);
+            } else if (file.isDirectory() && !file.getName().startsWith(".")) {
+                indexDir(indexer, knownFiles, file);
+            }
+        }
+
+        // Variant that works for Maven surefire tests
+        for (final File file : Utils4J.classpathFiles(Utils4J::nonJreJarFile)) {
+            indexJar(indexer, knownFiles, file);
+        }
+        for (final File file : Utils4J.classpathFiles(Utils4J::classFile)) {
+            indexClassFile(indexer, knownFiles, file);
+        }
+
+        // Finalize index and return implementors
+        final Index index = indexer.complete();
+        return implementors(index, SetupTask.class);
+
+    }
+
+    /**
+     * Tries to load all classes.
+     * 
+     * @param classNames
+     *            Fully qualified class names.
+     * 
+     * @return Classes.
+     */
+    public static List<Class<?>> loadClasses(final List<String> classNames) {
+
+        final List<Class<?>> classes = new ArrayList<>();
+        for (final String className : classNames) {
+            try {
+                classes.add(Class.forName(className));
+            } catch (final ClassNotFoundException ex) {
+                throw new RuntimeException("Failed to load : " + className, ex);
+            }
+        }
+        return classes;
 
     }
 

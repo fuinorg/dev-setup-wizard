@@ -112,37 +112,26 @@ public final class ConfigImpl implements Config {
      */
     public static ConfigImpl load(final URL url) {
 
-        LOG.info("Loading config " + url);
+        LOG.info("Loading config {}", url);
 
         try (final InputStream input = url.openStream()) {
 
             final String xmlConfig = IOUtils.toString(input,
                     Charset.forName("utf-8"));
 
-            final ConfigPreview preview = new ConfigPreview(xmlConfig).load();
-            preview.getClassNames().add(ConfigImpl.class.getName());
-
-            return JaxbUtils.unmarshal(xmlConfig,
-                    loadClasses(preview.getClassNames()));
+            final List<String> classNames = DevSupWizUtils
+                    .findSetupTasksInClasspath();
+            LOG.info("Task classes from classpath: {}", classNames);
+            
+            final List<Class<?>> classes = DevSupWizUtils.loadClasses(classNames);
+            classes.add(ConfigImpl.class);
+            final Class<?>[] classArr = classes.toArray(new Class<?>[classes.size()]);
+            return JaxbUtils.unmarshal(xmlConfig, classArr);
 
         } catch (final IOException ex) {
             LOG.error("Error loading config", ex);
             throw new RuntimeException("Failed to load config " + url, ex);
         }
-
-    }
-
-    private static Class<?>[] loadClasses(final List<String> classNames) {
-
-        final List<Class<?>> classes = new ArrayList<>();
-        for (final String className : classNames) {
-            try {
-                classes.add(Class.forName(className));
-            } catch (final ClassNotFoundException ex) {
-                throw new RuntimeException("Failed to load : " + className, ex);
-            }
-        }
-        return classes.toArray(new Class<?>[classes.size()]);
 
     }
 

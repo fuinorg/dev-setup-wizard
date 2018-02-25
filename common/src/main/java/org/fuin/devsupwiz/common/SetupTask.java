@@ -18,7 +18,8 @@
 package org.fuin.devsupwiz.common;
 
 /**
- * Task to create or update some kind of setup.
+ * Task to create or update some kind of setup. Every task is required to
+ * implement equals and hash code based on the {@link #getTypeId()} method.
  */
 public interface SetupTask {
 

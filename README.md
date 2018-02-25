@@ -21,7 +21,8 @@ At the end there are also some tasks that will simply execute linux commands in 
 ## Standard tasks
 There are already some predefined tasks available in the [devsupwiz-tasks](https://github.com/fuinorg/devsupwiz-tasks) repository.
 
-* **set-hostname**: Sets a new hostname for the virtual machine (VM)
+* **set-personal-data**: Sets the developer's personal data like name and email address.
+* **set-hostname**: Sets a new hostname for the virtual machine (VM).
 * **create-git-config**: Creates and populates the "~/.gitconfig" file.
 * **setup-git-ssh**: Generates a new key pair and adds it to the "~/.ssh/config" file. The public key is also submitted to the git provider (Bitbucket, Github) using a REST API. 
 * **git-clone**: Clones one or more git repositories. Requires that a valid SSH key is installed (See "setup-git-ssh" task).

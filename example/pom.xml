@@ -13,14 +13,14 @@
 		<dependency>
 			<groupId>org.fuin.devsupwiz</groupId>
 			<artifactId>devsupwiz-base</artifactId>
-			<version>0.1.1</version>
+			<version>0.2.0-SNAPSHOT</version>
 		</dependency>
 
 		<!-- Base tasks -->
 		<dependency>
 			<groupId>org.fuin.devsupwiz</groupId>
 			<artifactId>devsupwiz-tasks</artifactId>
-			<version>0.2.0</version>
+			<version>0.2.1-SNAPSHOT</version>
 		</dependency>
 
 		<!-- Additional tasks -->
@@ -39,7 +39,7 @@
 				<configuration>
 					<mainClass>org.fuin.devsupwiz.base.DevSetupWizard</mainClass>
 					<arguments>
-						<argument>https://raw.githubusercontent.com/fuinorg/dev-setup-wizard/master/example/my-project-setup.xml</argument>
+						<argument>file:///home/michi/git/dev-setup-wizard/example/my-project-setup.xml</argument>
 					</arguments>
 				</configuration>
 			</plugin>
