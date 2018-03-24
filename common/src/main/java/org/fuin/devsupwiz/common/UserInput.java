@@ -17,21 +17,9 @@
  */
 package org.fuin.devsupwiz.common;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-import javax.interceptor.InterceptorBinding;
-
 /**
- * The object that contains the annotated method will be validated on execution
- * of the method. An {@link IllegalStateException} will be thrown if the object
- * is invalid.
+ * Bean validation group that is assigned to constraints that verify user input.
  */
-@InterceptorBinding
-@Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.METHOD, ElementType.TYPE })
-public @interface ValidateInstance {
+public interface UserInput {
 
 }

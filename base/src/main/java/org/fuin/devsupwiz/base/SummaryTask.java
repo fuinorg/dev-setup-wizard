@@ -42,13 +42,8 @@ public class SummaryTask extends AbstractSetupTask {
     }
 
     @Override
-    public boolean alreadyExecuted() {
-        return false;
-    }
-
-    @Override
     public void execute() {
-        // Do nothing
+        // Do nothing        
     }
 
     @Override

@@ -38,4 +38,20 @@ public interface Config {
      */
     public List<SetupTask> getTasks();
 
+    /**
+     * Saves any changes made.
+     */
+    public void persist();
+
+    /**
+     * Tries to locate a task by it's unique type id.
+     * 
+     * @param key
+     *            Value returned by {@link SetupTask#getTypeId()}.
+     * 
+     * @return Task or <code>null</code> if no task with that identifier was
+     *         found.
+     */
+    public <T extends SetupTask> T findTask(String key);
+
 }

@@ -38,8 +38,9 @@
 				<version>1.6.0</version>
 				<configuration>
 					<mainClass>org.fuin.devsupwiz.base.DevSetupWizard</mainClass>
+                    <!-- Config name defaults to 'project-setup.xml' if the following part is missing -->
 					<arguments>
-						<argument>file:///home/michi/git/dev-setup-wizard/example/my-project-setup.xml</argument>
+						<argument>my-project-setup.xml</argument>
 					</arguments>
 				</configuration>
 			</plugin>

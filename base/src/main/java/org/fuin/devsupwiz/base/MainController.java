@@ -24,13 +24,19 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.groups.Default;
 
 import org.fuin.devsupwiz.common.Loggable;
 import org.fuin.devsupwiz.common.SetupTask;
 import org.fuin.devsupwiz.common.TextFlowAppender;
+import org.fuin.devsupwiz.common.UserInput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -91,6 +97,9 @@ public class MainController implements Initializable {
 
     @Inject
     private Instance<FXMLLoader> loaderInstance;
+
+    @Inject
+    private Validator validator;
 
     private ResourceBundle bundle;
 
@@ -185,6 +194,24 @@ public class MainController implements Initializable {
         });
     }
 
+    private void assertValid(final SetupTask task) {
+        final Set<ConstraintViolation<Object>> violations = validator
+                .validate(task, Default.class, UserInput.class);
+        if (!violations.isEmpty()) {
+            final StringBuilder sb = new StringBuilder();
+            violations.forEach((v) -> {
+                if (sb.length() > 0) {
+                    sb.append(", ");
+                }
+                sb.append(v.getMessage());
+            });
+            final String className = task.getClass().getName();
+            throw new IllegalStateException("The instance of type '" + className
+                    + "' was invalid when running 'execute()': "
+                    + sb.toString());
+        }
+    }
+
     private void executeTask(final Runnable onSuccess) {
 
         if (progressNodeControllerPair == null) {
@@ -194,6 +221,7 @@ public class MainController implements Initializable {
         }
 
         final SetupTask setupTask = taskModel.getTask();
+        assertValid(setupTask);
 
         final Node progressUI = progressNodeControllerPair.getParent();
         stackPane.getChildren().add(progressUI);

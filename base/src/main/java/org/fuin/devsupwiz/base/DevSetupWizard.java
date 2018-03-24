@@ -28,7 +28,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.fuin.devsupwiz.common.BootstrapBean;
 import org.fuin.ext4logback.LogbackStandalone;
-import org.fuin.utils4j.PropertiesFilePreferencesFactory;
 import org.fuin.utils4j.Utils4J;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -87,17 +86,7 @@ public class DevSetupWizard extends FxWeldApplication {
             ex.printStackTrace(System.err);
             System.exit(1);
         }
-
-        // Initialize user preferences
-        final File userPrefDir = new File(Utils4J.getUserHomeDir(),
-                ".dev-setup");
-        if (!userPrefDir.exists()) {
-            userPrefDir.mkdir();
-        }
-        System.setProperty(PropertiesFilePreferencesFactory.USER_PREF_DIR,
-                userPrefDir.toString());
-        System.setProperty("java.util.prefs.PreferencesFactory",
-                PropertiesFilePreferencesFactory.class.getName());
+        
     }
 
     @Override

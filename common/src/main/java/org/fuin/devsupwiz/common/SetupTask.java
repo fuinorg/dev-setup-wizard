@@ -62,6 +62,15 @@ public interface SetupTask {
     public boolean alreadyExecuted();
 
     /**
+     * Initializes the task with necessary runtime configuration. Must be called
+     * once before running {@link #execute()}.
+     * 
+     * @param config
+     *            Current configuration.
+     */
+    public void init(Config config);
+
+    /**
      * Executes the setup task. Does nothing if {@link #alreadyExecuted()}
      * returns <code>true</code>. The method will store some kind of persistent
      * information after execution or it will determine some other way if

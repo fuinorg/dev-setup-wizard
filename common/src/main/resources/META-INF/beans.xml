@@ -5,7 +5,6 @@
 
 	<interceptors>
 		<class>org.fuin.devsupwiz.common.LoggingInterceptor</class>
-		<class>org.fuin.devsupwiz.common.ValidateInstanceInterceptor</class>
 	</interceptors>
 
 	<scan />

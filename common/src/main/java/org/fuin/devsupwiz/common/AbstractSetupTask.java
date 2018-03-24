@@ -17,19 +17,60 @@
  */
 package org.fuin.devsupwiz.common;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
+
 /**
  * Base class for setup tasks that implements the hash code and equals functions
  * based on the {@link #getTypeId()} method.
  */
 public abstract class AbstractSetupTask implements SetupTask {
 
+    private transient Config config;
+
+    @XmlAttribute(name = "executed")
+    private Boolean executed;
+
+    /**
+     * Returns the current configuration.
+     * 
+     * @return Configuration.
+     */
+    protected final Config getConfig() {
+        return config;
+    }
+
     @Override
-    public int hashCode() {
+    public final void init(final Config config) {
+        this.config = config;
+    }
+
+    /**
+     * Sets the task to 'executed' and automatically persists the configuration.
+     * Method {@link #alreadyExecuted()} will return true after calling this
+     * method.
+     */
+    protected final void success() {
+        if (config == null) {
+            throw new IllegalStateException(
+                    "Configuration not set - Did you forget to call 'init(..)' method in a test?");
+        }
+        executed = true;
+        config.persist();
+    }
+
+    @Override
+    public final boolean alreadyExecuted() {
+        return executed != null && executed;
+    }
+
+    @Override
+    public final int hashCode() {
         return getTypeId().hashCode();
     }
 
     @Override
-    public boolean equals(final Object obj) {
+    public final boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }

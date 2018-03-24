@@ -42,11 +42,6 @@ public class WelcomeTask extends AbstractSetupTask {
     }
 
     @Override
-    public boolean alreadyExecuted() {
-        return false;
-    }
-
-    @Override
     public void execute() {
         // Do nothing
     }

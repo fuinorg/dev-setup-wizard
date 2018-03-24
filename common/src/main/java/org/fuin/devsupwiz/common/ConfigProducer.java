@@ -1,7 +1,6 @@
 package org.fuin.devsupwiz.common;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.io.File;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
@@ -34,26 +33,27 @@ public class ConfigProducer {
     @Produces
     public Config create() {
         final Parameters parameters = setupContext.getParameters();
-        if (parameters == null || parameters.getUnnamed() == null
-                || parameters.getUnnamed().size() == 0) {
-            throw new RuntimeException("No configuration URL provided");
-        }
-        final String urlStr = parameters.getUnnamed().get(0);
-        final URL url = url(urlStr);
-        return ConfigImpl.load(url);
+        final File file = getConfigFile(parameters);
+        return ConfigImpl.load(file);
     }
 
-    /**
-     * Returns the URL.
-     * 
-     * @return Config URL.
-     */
-    private URL url(final String url) {
-        try {
-            return new URL(url);
-        } catch (final MalformedURLException ex) {
-            throw new IllegalStateException("Invalid URL: " + url, ex);
+    private File getConfigFile(final Parameters parameters) {
+        final String name = getConfigName(parameters);
+        LOG.info("Configuration name: {}", name);
+        final File file = new File("./" + name);
+        if (!file.exists()) {
+            throw new IllegalArgumentException(
+                    "Configuration file does not exist: " + file);
         }
+        return file;
+    }
+
+    private String getConfigName(final Parameters parameters) {
+        if (parameters == null || parameters.getUnnamed() == null
+                || parameters.getUnnamed().size() == 0) {
+            return "project-setup.xml";
+        }
+        return parameters.getUnnamed().get(0);
     }
 
 }

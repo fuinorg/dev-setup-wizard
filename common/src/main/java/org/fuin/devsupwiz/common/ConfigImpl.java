@@ -17,17 +17,18 @@
  */
 package org.fuin.devsupwiz.common;
 
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import javax.enterprise.inject.Vetoed;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
@@ -35,7 +36,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.FileUtils;
 import org.fuin.utils4j.JaxbUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,6 +49,8 @@ import org.slf4j.LoggerFactory;
 @XmlRootElement(name = "dev-setup-wizard")
 public final class ConfigImpl implements Config {
 
+    private static final Charset UTF8 = Charset.forName("utf-8");
+
     private static final Logger LOG = LoggerFactory.getLogger(ConfigImpl.class);
 
     @NotEmpty
@@ -58,6 +61,10 @@ public final class ConfigImpl implements Config {
     @XmlElementWrapper(name = "tasks")
     private List<SetupTask> tasks;
 
+    private transient File file;
+
+    private transient Class<?>[] classes;
+
     /**
      * Default constructor for JAXB.
      */
@@ -66,7 +73,7 @@ public final class ConfigImpl implements Config {
     }
 
     /**
-     * Constructor with all data.
+     * Constructor with all data (task list).
      * 
      * @param name
      *            Unique name.
@@ -78,6 +85,24 @@ public final class ConfigImpl implements Config {
         super();
         this.name = name;
         this.tasks = new ArrayList<>(tasks);
+    }
+
+    /**
+     * Constructor with all data (task array).
+     * 
+     * @param name
+     *            Unique name.
+     * @param tasks
+     *            Tasks.
+     */
+    public ConfigImpl(@NotEmpty final String name,
+            @NotNull final SetupTask... tasks) {
+        super();
+        this.name = name;
+        this.tasks = new ArrayList<>();
+        if (tasks != null && tasks.length > 0) {
+            this.tasks.addAll(Arrays.asList(tasks));
+        }
     }
 
     /**
@@ -102,35 +127,94 @@ public final class ConfigImpl implements Config {
         return Collections.unmodifiableList(tasks);
     }
 
+    private final void setFile(final File file) {
+        this.file = file;
+    }
+
+    private final void setClasses(final Class<?>[] classes) {
+        this.classes = classes;
+    }
+
+    @Override
+    public final void persist() {
+        // Only persist in case the config was loaded from disk
+        if (classes != null) {
+            try {
+                FileUtils.write(file, JaxbUtils.marshal(this, classes), UTF8);
+            } catch (final IOException ex) {
+                throw new RuntimeException("Error saving config to: " + file,
+                        ex);
+            }
+        }
+    }
+
+    /**
+     * Initializes the instance.
+     */
+    public void init() {
+        if (tasks != null) {
+            for (final SetupTask task : tasks) {
+                task.init(this);
+            }
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T extends SetupTask> T findTask(String key) {
+        if (tasks == null) {
+            return null;
+        }
+        for (final SetupTask task : tasks) {
+            if (task.getTypeId().equals(key)) {
+                return (T) task;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Called by JAXB after unmarshalling.
+     * 
+     * @param unmarshaller
+     *            Unmarshaller.
+     * @param parent
+     *            Parent.
+     */
+    public void afterUnmarshal(Unmarshaller unmarshaller, Object parent) {
+        init();
+    }
+
     /**
      * Creates a new instance from XML.
      * 
-     * @param url
-     *            URL with XML configuration.
+     * @param file
+     *            File with XML configuration.
      * 
      * @return New configuration instance.
      */
-    public static ConfigImpl load(final URL url) {
+    public static ConfigImpl load(final File file) {
 
-        LOG.info("Loading config {}", url);
-
-        try (final InputStream input = url.openStream()) {
-
-            final String xmlConfig = IOUtils.toString(input,
-                    Charset.forName("utf-8"));
+        LOG.info("Loading config {}", file);
+        try {
+            final String xmlConfig = FileUtils.readFileToString(file, UTF8);
 
             final List<String> classNames = DevSupWizUtils
                     .findSetupTasksInClasspath();
             LOG.info("Task classes from classpath: {}", classNames);
-            
-            final List<Class<?>> classes = DevSupWizUtils.loadClasses(classNames);
-            classes.add(ConfigImpl.class);
-            final Class<?>[] classArr = classes.toArray(new Class<?>[classes.size()]);
-            return JaxbUtils.unmarshal(xmlConfig, classArr);
+
+            final List<Class<?>> classList = DevSupWizUtils
+                    .loadClasses(classNames);
+            classList.add(ConfigImpl.class);
+            final Class<?>[] classes = classList
+                    .toArray(new Class<?>[classList.size()]);
+            final ConfigImpl config = JaxbUtils.unmarshal(xmlConfig, classes);
+            config.setFile(file);
+            config.setClasses(classes);
+            return config;
 
         } catch (final IOException ex) {
-            LOG.error("Error loading config", ex);
-            throw new RuntimeException("Failed to load config " + url, ex);
+            throw new RuntimeException("Failed to load config: " + file, ex);
         }
 
     }
