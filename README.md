@@ -24,8 +24,9 @@ There are already some predefined tasks available in the [devsupwiz-tasks](https
 * **set-personal-data**: Sets the developer's personal data like name and email address.
 * **set-hostname**: Sets a new hostname for the virtual machine (VM).
 * **create-git-config**: Creates and populates the "~/.gitconfig" file.
-* **setup-git-ssh**: Generates a new key pair and adds it to the "~/.ssh/config" file. The public key is also submitted to the git provider (Bitbucket, Github) using a REST API. 
-* **git-clone**: Clones one or more git repositories. Requires that a valid SSH key is installed (See "setup-git-ssh" task).
+* **generate-ssh-key**: Generates a new key pair and adds it to the "~/.ssh/config" file. 
+* **display-ssh-key**: Displays a newly generated SSH public key. 
+* **git-clone**: Clones one or more git repositories. Requires that a valid SSH key is created and added to your git repository (See "generate-ssh-key" task).
 * **create-maven-settings**: Creates a ".m2/settings.xml" file with credentials for private repositories. 
 
 More tasks are [planned](https://github.com/fuinorg/devsupwiz-tasks/issues)...
@@ -132,17 +133,17 @@ Example (my-project-setup.xml):
 ```xml
 <dev-setup-wizard name="my-project">
   <tasks>
-    <set-hostname id="1" task-class="org.fuin.devsupwiz.tasks.hostname.SetHostnameTask" />
-    <create-git-config id="1" task-class="org.fuin.devsupwiz.tasks.gitsetup.CreateGitConfigTask" />
-    <setup-git-ssh id="1" provider="bitbucket" host="bitbucket.org" 
-        task-class="org.fuin.devsupwiz.tasks.gitsetup.SetupGitSshTask" />
-    <git-clone id="1" target-dir="~/git" task-class="org.fuin.devsupwiz.tasks.gitsetup.GitCloneTask" >
+    <set-personal-data />
+    <set-hostname />
+    <create-git-config />
+    <generate-ssh-key id="1" host="bitbucket.org" />
+    <display-ssh-key id="1" ref="generate-ssh-key[1]" />
+    <git-clone id="1" target-dir="~/git">
       <repository>git@bitbucket.org:my_account/my-project.git</repository>
       <repository>git@bitbucket.org:my_account/another-one.git</repository>
       <repository>git@bitbucket.org:my_account/whatever.git</repository>
     </git-clone>
-    <create-maven-settings id="1" template="~/git/my-project/config/settings.xml"
-        task-class="org.fuin.devsupwiz.tasks.maven.CreateMavenSettingsTask"/>
+    <create-maven-settings id="1" template="~/git/my-project/config/settings.xml" />
   </tasks>
 </dev-setup-wizard>
 ```
@@ -150,7 +151,7 @@ Example (my-project-setup.xml):
 The "name" attribute is a unique identifier for the configuration. The project's name is a good choice.
 
 A task consists of 
-* **type**: Describes the purpose of the task (e.g. tag name like "setup-git-ssh")
+* **type**: Describes the purpose of the task (e.g. tag name like "generate-ssh-key")
 * **id**: Unique name for the task instance. If there is more than one task of the same type, this is used to distinguish the tasks.
 * **task-class**: The full qualified name of the task's Java class. This allows dynamic loading of additional, yet unknown, tasks. 
 * **attributes** or **elements** (Optional): Some tasks may offer additional attributes (e.g. "target-dir") or elements (e.g. "repository") to customize the task.
