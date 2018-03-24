@@ -17,42 +17,42 @@
  */
 package org.fuin.devsupwiz.base;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Vetoed;
 
 import org.fuin.devsupwiz.common.AbstractSetupTask;
 
 /**
  * Welcome screen task.
  */
-@ApplicationScoped
-public class WelcomeTask extends AbstractSetupTask {
+@Vetoed
+public final class WelcomeTask extends AbstractSetupTask {
 
     /** Unique normalized name of the task (for example used for FXML file). */
     static final String KEY = "welcome";
 
     @Override
-    public String getResource() {
+    public final String getResource() {
         return this.getClass().getPackage().getName().replace('.', '/') + "/"
                 + KEY;
     }
 
     @Override
-    public String getFxml() {
+    public final String getFxml() {
         return "/" + getResource() + ".fxml";
     }
 
     @Override
-    public void execute() {
+    public final void execute() {
         // Do nothing
     }
 
     @Override
-    public String getType() {
+    public final String getType() {
         return KEY;
     }
 
     @Override
-    public String getTypeId() {
+    public final String getTypeId() {
         return KEY;
     }
 

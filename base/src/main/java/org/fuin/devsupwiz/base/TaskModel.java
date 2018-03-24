@@ -42,14 +42,12 @@ public class TaskModel {
     private Instance<FXMLLoader> loaderInstance;
 
     @Inject
-    private WelcomeTask welcomeTask;
-
-    @Inject
-    private SummaryTask summaryTask;
-    
-    @Inject
     private Config config;
 
+    private WelcomeTask welcomeTask;
+
+    private SummaryTask summaryTask;
+    
     private int index;
 
     private NodeControllerPair<SetupController> current;
@@ -63,6 +61,9 @@ public class TaskModel {
     public void init() {
         nodeControllers = new ArrayList<>();
 
+        welcomeTask = new WelcomeTask();
+        summaryTask = new SummaryTask();
+        
         final NodeControllerPair<SetupController> ncw = NodeControllerPair.load(
                 welcomeTask.getTypeId(), loaderInstance, welcomeTask.getFxml(),
                 welcomeTask.getResource());
