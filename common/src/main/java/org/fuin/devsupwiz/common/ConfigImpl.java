@@ -17,8 +17,11 @@
  */
 package org.fuin.devsupwiz.common;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,6 +31,9 @@ import java.util.List;
 import javax.enterprise.inject.Vetoed;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -140,8 +146,13 @@ public final class ConfigImpl implements Config {
         // Only persist in case the config was loaded from disk
         if (classes != null) {
             try {
-                FileUtils.write(file, JaxbUtils.marshal(this, classes), UTF8);
-            } catch (final IOException ex) {
+                final JAXBContext ctx = JAXBContext.newInstance(classes);
+                final Marshaller marshaller = ctx.createMarshaller();
+                marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+                try (final Writer writer = new BufferedWriter(new FileWriter(file))) {
+                    marshaller.marshal(this, writer);
+                }
+            } catch (final IOException | JAXBException ex) {
                 throw new RuntimeException("Error saving config to: " + file,
                         ex);
             }
