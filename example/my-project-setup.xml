@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <dev-setup-wizard name="my-project">
     <tasks>
-        <set-personal-data />
-        <set-hostname />
-        <create-git-config push-default="SIMPLE" />
-        <generate-ssh-key id="1" host="bitbucket.org" />
-        <display-ssh-key id="1" ref="generate-ssh-key[1]" />
+        <set-personal-data/>
+        <set-hostname/>
+        <create-git-config push-default="SIMPLE"/>
+        <generate-ssh-key id="1" host="bitbucket.org"/>
+        <display-ssh-key id="1" ref="generate-ssh-key[1]"/>
         <git-clone id="1" target-dir="~/git">
             <repository>git@bitbucket.org:tutorials/tutorials.git.bitbucket.org.git</repository>
             <repository>git@bitbucket.org:tutorials/online-edit-starter.git</repository>
         </git-clone>
-        <create-maven-settings template="~/git/myprj-config/settings.xml" />
+        <create-maven-settings template="~/git/myprj-config/settings.xml"/>
     </tasks>
 </dev-setup-wizard>
