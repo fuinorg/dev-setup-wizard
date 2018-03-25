@@ -109,10 +109,10 @@ Example:
         <artifactId>exec-maven-plugin</artifactId>
         <version>1.6.0</version>
         <configuration>
-            <mainClass>org.fuin.devsupwiz.base.DevSetupWizard</mainClass>
+          <mainClass>org.fuin.devsupwiz.base.DevSetupWizard</mainClass>
+          <!-- Config name defaults to 'project-setup.xml' if the following tag is missing -->
           <arguments>
-              <!-- This points to the XML configuration you'll create in the next step -->
-            <argument>https://raw.githubusercontent.com/fuinorg/dev-setup-wizard/master/example/my-project-setup.xml</argument>
+            <argument>my-project-setup.xml</argument>
           </arguments>
         </configuration>
       </plugin>
@@ -194,6 +194,7 @@ Add the following to your .m2/settings.xml to enable snapshots in your Maven bui
         <enabled>false</enabled>
     </releases>
     <snapshots>
+        <updatePolicy>always</updatePolicy>
         <enabled>true</enabled>
     </snapshots>
 </repository>
