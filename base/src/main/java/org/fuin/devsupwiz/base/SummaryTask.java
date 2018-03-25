@@ -19,13 +19,14 @@ package org.fuin.devsupwiz.base;
 
 import javax.enterprise.inject.Vetoed;
 
-import org.fuin.devsupwiz.common.AbstractSetupTask;
+import org.fuin.devsupwiz.common.Config;
+import org.fuin.devsupwiz.common.SetupTask;
 
 /**
  * Summary task.
  */
 @Vetoed
-public final class SummaryTask extends AbstractSetupTask {
+public final class SummaryTask implements SetupTask {
 
     /** Unique normalized name of the task (for example used for FXML file). */
     static final String KEY = "summary";
@@ -43,7 +44,7 @@ public final class SummaryTask extends AbstractSetupTask {
 
     @Override
     public final void execute() {
-        // Do nothing        
+        // Do nothing
     }
 
     @Override
@@ -54,6 +55,21 @@ public final class SummaryTask extends AbstractSetupTask {
     @Override
     public final String getTypeId() {
         return KEY;
+    }
+
+    @Override
+    public final boolean alreadyExecuted() {
+        return false;
+    }
+
+    @Override
+    public final void init(final Config config) {
+        // Do nothing
+    }
+
+    @Override
+    public final void success() {
+        // Do nothing
     }
 
 }
