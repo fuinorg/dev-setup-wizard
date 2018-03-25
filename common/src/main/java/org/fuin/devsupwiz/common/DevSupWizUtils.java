@@ -229,26 +229,6 @@ public final class DevSupWizUtils {
         }
     }
 
-    /**
-     * Adds the given host without any check to the 'known_hosts' file.
-     * 
-     * @param host
-     *            Host to add (Usually without "www").
-     */
-    public static void addToSshKnownHosts(final String host) {
-
-        final ShellCommandExecutor executor = new ShellCommandExecutor(
-                "ssh -oStrictHostKeyChecking=no " + host, 5,
-                new HashMap<String, String>(), new LogOutputStream(Level.INFO),
-                new LogOutputStream(Level.ERROR));
-        final int result = executor.execute();
-        if (result != 0) {
-            throw new RuntimeException("Error # " + result + " adding " + host
-                    + " to 'known_hosts'");
-        }
-
-    }
-
     private static List<String> implementors(final Index index,
             final Class<?> clasz) {
         final List<String> classNames = new ArrayList<>();
