@@ -18,7 +18,6 @@
 package org.fuin.devsupwiz.common;
 
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Base class for setup tasks that implements the hash code and equals functions
@@ -45,12 +44,8 @@ public abstract class AbstractSetupTask implements SetupTask {
         this.config = config;
     }
 
-    /**
-     * Sets the task to 'executed' and automatically persists the configuration.
-     * Method {@link #alreadyExecuted()} will return true after calling this
-     * method.
-     */
-    protected final void success() {
+    @Override
+    public final void success() {
         if (config == null) {
             throw new IllegalStateException(
                     "Configuration not set - Did you forget to call 'init(..)' method in a test?");

@@ -29,7 +29,6 @@ import java.util.Set;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.groups.Default;
 
@@ -228,7 +227,13 @@ public class MainController implements Initializable {
 
         final Task<Void> task = new Task<Void>() {
             protected Void call() throws Exception {
-                setupTask.execute();
+                if (setupTask.alreadyExecuted()) {
+                    LOG.info("Task already executed: {}", setupTask.getTypeId());
+                } else {
+                    setupTask.execute();
+                    setupTask.success();
+                    LOG.info("Task successfully executed: {}", setupTask.getTypeId());
+                }
                 return null;
             }
 

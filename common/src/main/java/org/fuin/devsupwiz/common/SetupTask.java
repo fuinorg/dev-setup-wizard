@@ -78,4 +78,11 @@ public interface SetupTask {
      */
     public void execute();
 
+    /**
+     * Sets the task to 'executed' and persists the task's data. Method
+     * {@link SetupTask#alreadyExecuted()} will return true after calling this
+     * method.
+     */
+    public void success();
+
 }
