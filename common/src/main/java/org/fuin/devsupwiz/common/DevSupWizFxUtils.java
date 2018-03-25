@@ -34,7 +34,10 @@ public final class DevSupWizFxUtils {
     /** OK icon 24x24 pixel. */
     public static final Image ICON_OK_24X24 = new Image("/ok-24x24.png");
 
-    /** OK icon 24x24 pixel. */
+    /** Info icon 24x24 pixel. */
+    public static final Image ICON_INFO_24X24 = new Image("/info-24x24.png");
+    
+    /** Error icon 16x16 pixel. */
     public static final Image ICON_ERROR_16X16 = new Image("/error-16x16.png");
 
     private DevSupWizFxUtils() {
@@ -56,6 +59,15 @@ public final class DevSupWizFxUtils {
      */
     public static ImageView createIconOk24x24() {
         return new ImageView(ICON_OK_24X24);
+    }
+
+    /**
+     * Creates a INFO icon (24x24 pixel).
+     * 
+     * @return New node instance.
+     */
+    public static ImageView createIconInfo24x24() {
+        return new ImageView(ICON_INFO_24X24);
     }
 
     /**
