@@ -32,7 +32,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.jar.JarEntry;
@@ -156,36 +155,6 @@ public final class DevSupWizUtils {
     public static String getString(final ResourceBundle bundle,
             final String key, final Object... params) {
         return MessageFormat.format(bundle.getString(key), params);
-    }
-
-    /**
-     * Loads a resource from the classpath as properties.
-     * 
-     * @param loader
-     *            Class loader to use.
-     * @param resource
-     *            Resource to load.
-     * 
-     * @return Properties.
-     */
-    public static Properties loadProperties(final ClassLoader loader,
-            final String resource) {
-        try {
-            final Properties props = new Properties();
-            final InputStream inStream = loader.getResourceAsStream(resource);
-            if (inStream == null) {
-                throw new IllegalArgumentException(
-                        "Resource '" + resource + "' not found!");
-            }
-            try {
-                props.load(inStream);
-            } finally {
-                inStream.close();
-            }
-            return props;
-        } catch (final IOException ex) {
-            throw new RuntimeException(ex);
-        }
     }
 
     /**
