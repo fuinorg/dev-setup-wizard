@@ -10,6 +10,6 @@
             <repository>git@bitbucket.org:tutorials/tutorials.git.bitbucket.org.git</repository>
             <repository>git@bitbucket.org:tutorials/online-edit-starter.git</repository>
         </git-clone>
-        <create-maven-settings template="~/git/myprj-config/settings.xml"/>
+        <create-maven-settings template="~/git/dev-setup-wizard/debug/my-project-settings.xml" skip-credentials="true"/>
     </tasks>
 </dev-setup-wizard>
