@@ -1,12 +1,10 @@
 # dev-setup-wizard
 A JavaFX based wizard for setting up a development environment on a Linux virtual machine (VM) - *Sorry, no Windows...*.
 
-[![Build Status](https://fuin-org.ci.cloudbees.com/job/dev-setup-wizard/badge/icon)](https://fuin-org.ci.cloudbees.com/job/dev-setup-wizard/)
+[![Build Status](https://jenkins.fuin.org/job/dev-setup-wizard/badge/icon)](https://jenkins.fuin.org/job/dev-setup-wizard/)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.fuin.devsupwiz/devsupwiz-base/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.fuin.devsupwiz/devsupwiz-base/)
 [![LGPLv3 License](http://img.shields.io/badge/license-LGPLv3-blue.svg)](https://www.gnu.org/licenses/lgpl.html)
 [![Java Development Kit 1.8](https://img.shields.io/badge/JDK-1.8-green.svg)](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
-
-<a href="https://fuin-org.ci.cloudbees.com/job/dev-setup-wizard"><img src="http://www.fuin.org/images/Button-Built-on-CB-1.png" width="213" height="72" border="0" alt="Built on CloudBees"/></a>
 
 > :warning: Be aware that this is work in progress - The project has a very low test coverage at the moment :warning:
 
