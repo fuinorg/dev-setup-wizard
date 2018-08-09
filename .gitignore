@@ -1,6 +1,7 @@
 .*
 !.gitignore
 !.gitkeep
+!.mvn
 target
 *.log
 dev-setup-wizard-logback.xml
